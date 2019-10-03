@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h1 class="panel-title ">新增作者</h1>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <p>
+                输入新增的作者: <input type="text" name="a_name">
+            </p>
+            <p>
+                <select name="book_id" id="" multiple>
+                    {% for book in book_all %}
+                        <option value="{{ book.pk }}">{{ book.b_name }}</option>
+
+                    {% endfor %}
+                </select>
+            </p>
+            <button class="btn-sm btn  btn-success">提交</button>
+        </form>
+    </div>
+{% endblock %}

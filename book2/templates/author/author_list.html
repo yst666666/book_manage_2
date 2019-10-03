@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h1 class="panel-title ">作者列表</h1>
+        </div>
+        <a href="/author_add/" class="btn-success btn btn-sm">新增</a>
+        <table class="col-lg-9 table-hover table table-bordered">
+            <thead>
+            <tr class="active">
+                <th>序号</th>
+                <th>ID</th>
+                <th>作者姓名</th>
+                <th>代表作</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for author in author_all %}
+                <tr class="active">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.a_name }}</td>
+                    <td>
+
+                        {% for book in author.books.all  %}
+                            {% if forloop.last %}
+                                 <<{{ book.b_name }}>>
+                            {% else %}
+                                <<{{ book.b_name }}>>、
+                            {% endif %}
+                        {% endfor %}
+
+                    </td>
+                    <td>
+                        <a href="/author_edit/{{ author.id }}" class=" btn-primary  btn btn-sm">编辑</a>
+                        <a href="/author_del/{{ author.id }}" class="  btn-danger  btn btn-sm">删除</a>
+
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+ </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h1 class="panel-title ">出版社列表</h1>
+        </div>
+        <a href="/publish_add/" class="btn-success btn btn-sm">新增</a>
+        <table class="col-lg-9 table-hover table table-bordered">
+            <thead>
+            <tr class="active">
+                <th>序号</th>
+                <th>ID</th>
+                <th>出版社名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for publish in publish_all %}
+                <tr class="active">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ publish.id }}</td>
+                    <td>{{ publish.p_name }}</td>
+                    <td>
+                        <a href="/publish_edit/{{ publish.id }}" class=" btn-primary  btn btn-sm">编辑</a>
+                        <a href="/publish_del/{{ publish.id }}" class="  btn-danger  btn btn-sm">删除</a>
+
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
