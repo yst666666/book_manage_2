@@ -48,12 +48,12 @@ urlpatterns = [
     url(r'^publish_del/(\d+)', views2.publish_del, name='publish_list'),
 
     url(r'^book_list/', views2.book_list, name='book_list'),
-    url(r'^book_add/', views2.book_add, name='book_add'),
-    url(r'^book_edit/(\d+)', views2.book_edit, name='book_edit'),
+    url(r'^book_add/', views2.book_add_edit, name='book_add'),
+    url(r'^book_edit/(\d+)', views2.book_add_edit, name='book_edit'),
     url(r'^book_del/(\d+)', views2.book_del, name='book_list'),
 
     url(r'^author_list/', views2.author_list, name='author_list'),
-    url(r'^author_add/', views2.author_add, name='author_add'),
-    url(r'^author_edit/(\d+)', views2.author_edit, name='author_edit'),
+    url(r'^author_add/', views2.author_add_edit, name='author_add'),
+    url(r'^author_edit/(\d+)', views2.author_add_edit, name='author_edit'),
     url(r'^author_del/(\d+)', views2.author_del, name='author_list'),
 ]

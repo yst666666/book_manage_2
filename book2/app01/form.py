@@ -8,10 +8,7 @@ class PublisherForm(forms.Form):
     p_name = forms.CharField(max_length=64,
                              label='出版社名字',
                              # widget=forms.widgets.TextInput(attrs={'class': 'form-control',
-    )
-
-
-
+                             )
 
 
 class BookForm(forms.Form):

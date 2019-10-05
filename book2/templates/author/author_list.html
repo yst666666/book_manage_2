@@ -25,9 +25,9 @@
 
                         {% for book in author.books.all  %}
                             {% if forloop.last %}
-                                 <<{{ book.b_name }}>>
+                                 《{{ book.b_name }}》
                             {% else %}
-                                <<{{ book.b_name }}>>、
+                                《{{ book.b_name }}》、
                             {% endif %}
                         {% endfor %}
 

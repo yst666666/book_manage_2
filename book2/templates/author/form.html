@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="col-md-2" style="height: 100px;"></div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ title }}</h3>
+            </div>
+            <div class="panel-body ">
+                <form action="" method="post" novalidate class="col-md-9">
+                    {% csrf_token %}
+                    {% for field in form_obj %}
+
+                        <div class="form-group  {% if field.errors %}has-error{% endif %}">
+                            <label for="{{ field.id_for_label }}"
+                                   {% if not field.field.required %}style="color: #cbcbcb"{% endif %}>{{ field.label }}</label>
+                            {{ field }}
+                            <span class="help-block">{{ field.errors.0 }}</span>
+
+                        </div>
+
+                    {% endfor %}
+                    <div class="text-danger text-center">{{ form_obj.non_field_errors.0 }}</div>
+                    {#                    {{ customer_obj.as_p }}#}
+                    {#                    {{ customer_obj.errors }}#}
+                    <button class="btn btn-primary btn-sm">提交</button>
+
+                </form>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+{% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from app01 import models
 from app01.form import PublisherForm
+from app01.model_form import BookForm,AuthorForm
 
 
 # Create your views here.
@@ -11,6 +12,9 @@ def publish_list(request):
     return render(request, 'publish/publish_list.html', {'publish_all': publish_all})
 
 
+# *--*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*--*-*-**-*--*-*-*-*-*-*-
+#     form 的使用,不能放源数据,不能进行改的操作,low               -*
+# *-*-*-**-*-*-*-**-*-**-*-*+**-*-*-**-*-*-**-*-**-*-*-*-*-*-
 def publish_add(request, pk=None):
     form_obj = PublisherForm()
     if request.method == 'POST':
@@ -47,33 +51,22 @@ def book_list(request):
     return render(request, 'book/book_list.html', {'book_all': book_all})
 
 
-def book_add(request):
+# *--*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*--*-*-**-*--*-*-*-*-*-*-
+#                     ModelForm                            -*
+# *-*-*-**-*-*-*-**-*-**-*-*+**-*-*-**-*-*-**-*-**-*-*-*-*-*-
+def book_add_edit(request, pk=None):
+    obj = models.Book.objects.filter(pk=pk).first()
+    form_obj = BookForm(instance=obj)
     if request.method == 'POST':
-        book_name = request.POST.get('book_name')
-        pub_id = request.POST.get('pub_id')
-        book_obj = models.Book.objects.create(b_name=book_name)
-        book_obj.pub_id = pub_id  # 外键
-        book_obj.save()
-        return redirect('/book_list/')
-
-    # 查询所有的出版社
-    pub_all = models.Publisher.objects.all()
-    return render(request, 'book/book_add.html', {'pub_all': pub_all})
-
-
-def book_edit(request, pk):
-    # 给编辑页面传回id--对应的默认值
-    book_obj = models.Book.objects.filter(pk=pk).first()
-
-    if request.method == 'POST':
-        book_name = request.POST.get('book_name')
-        pub_id = request.POST.get('pub_id')
-        book_obj.p_name = book_name
-        book_obj.pub_id = pub_id
-        book_obj.save()
-        return redirect('/book_list/')
-    pub_all = models.Publisher.objects.all()
-    return render(request, 'book/book_edit.html', {'book_obj': book_obj, 'pub_all': pub_all})
+        form_obj = BookForm(data=request.POST, instance=obj)
+        if form_obj.is_valid():
+            form_obj.save()
+            return redirect('/book_list')
+    if pk:
+        title = '书籍编辑页面'
+    else:
+        title = '书籍新增页面'
+    return render(request, 'book/book_add_edit.html', {'form_obj': form_obj, 'title': title})
 
 
 def book_del(request, pk):
@@ -87,31 +80,22 @@ def author_list(request):
     return render(request, 'author/author_list.html', {'author_all': author_all})
 
 
-def author_add(request):
+# *--*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*--*-*-**-*--*-*-*-*-*-*-
+#                     ModelForm                            -*
+# *-*-*-**-*-*-*-**-*-**-*-*+**-*-*-**-*-*-**-*-**-*-*-*-*-*-
+def author_add_edit(request, pk=None):
+    obj = models.Author.objects.filter(pk=pk).first()
+    form_obj = AuthorForm(instance=obj)
     if request.method == 'POST':
-        a_name = request.POST.get('a_name')
-        book = request.POST.getlist('book_id')  # 多对多的操作get_list,获取select-option-multiple
-        author_obj = models.Author.objects.create(a_name=a_name)
-        author_obj.books.set(book)  # 找到多对多的关系对象.set()进行设置
-        return redirect('/author_list/')
-
-    # 查询所有的出版社
-    book_all = models.Book.objects.all()
-    return render(request, 'author/author_add.html', {'book_all': book_all})
-
-
-def author_edit(request, pk):
-    # 给编辑页面传回id--对应的默认值
-    aut_obj = models.Author.objects.filter(pk=pk).first()
-
-    if request.method == 'POST':
-        a_name = request.POST.get('a_name')
-        book = request.POST.getlist('book_id')
-        aut_obj.a_name = a_name
-        aut_obj.books.set(book)
-        return redirect('/author_list/')
-    book_all = models.Book.objects.all()
-    return render(request, 'author/author_edit.html', {'aut_obj': aut_obj, 'book_all': book_all})
+        form_obj = AuthorForm(data=request.POST, instance=obj)
+        if form_obj.is_valid():
+            form_obj.save()
+            return redirect('/author_list')
+    if pk:
+        title = '作者编辑页面'
+    else:
+        title = '作者新增页面'
+    return render(request, 'author/author_add_edit.html', {'form_obj': form_obj, 'title': title})
 
 
 def author_del(request, pk):
