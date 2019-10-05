@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="col-md-2" style="height: 100px;"></div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ title }}</h3>
+            </div>
+            <div class="panel-body ">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="{{ form_obj.b_name.id_for_label }}">{{ form_obj.b_name.label }}</label>
+                    {{ form_obj.b_name }}
+                    {{ form_obj.pub }}
+                    {{ form_obj.b_name.error.0 }}
+
+
+                    <button class="btn-sm btn  btn-success">提交</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

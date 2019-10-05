@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h1 class="panel-title ">图书列表</h1>
+        </div>
+        <a href="/book_add/" class="btn-success btn btn-sm">新增</a>
+        <table class="col-lg-9 table-hover table table-bordered">
+            <thead>
+            <tr class="active">
+                <th>序号</th>
+                <th>ID</th>
+                <th>图书</th>
+                <th>出版社名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for book in book_all %}
+                <tr class="active">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ book.id }}</td>
+                    <td>{{ book.b_name }}</td>
+                    <td>{{ book.pub.p_name }}</td>
+                    <td>
+                        <a href="/book_edit/{{ book.id }}" class=" btn-primary  btn btn-sm">编辑</a>
+                        <a href="/book_del/{{ book.id }}" class="  btn-danger  btn btn-sm">删除</a>
+
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

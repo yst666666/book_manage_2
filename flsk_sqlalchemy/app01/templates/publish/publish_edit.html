@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block contentBlock %}
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h1 class="panel-title ">编辑出版社</h1>
+        </div>
+        <form action="" method="post">
+            <p>
+                编辑的出版社: <input type="text" name="p_name" value="{{ pub_obj.p_name }}">
+            </p>
+            <button class="btn-sm btn  btn-success">提交</button>
+        </form>
+    </div>
+{% endblock contentBlock %}
+

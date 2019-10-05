@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h1 class="panel-title ">新增图书</h1>
+        </div>
+    <form action="" method="post">
+    {%  csrf_token  %}
+        <p>
+            输入新增的图书: <input type="text" name="book_name">
+        </p>
+        <p>
+            <select name="pub_id" id="" >
+                {% for publish in pub_all %}
+                    <option value="{{ publish.pk }}">{{ publish.p_name }}</option>
+
+                {% endfor %}
+            </select>
+        </p>
+        <button class="btn-sm btn  btn-success">提交</button>
+    </form>
+    </div>
+{%  endblock %}
